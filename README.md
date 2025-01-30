@@ -40,9 +40,10 @@ This endpoint allows you to send a code file and its language to generate and ru
 ##### Request Body:
 ```json
 {
-  "codeFile": "path/to/your/code.py",  // The path to the code file you want to test.
-  "language": "python"                 // The programming language of the code file (e.g., python, javascript).
+  "codeFile": "path/to/your/code.py", 
+  "language": "python"                 
 }
+
 
 EXAMPLE:
 curl -X POST http://localhost:3000/run-test-cases \  
