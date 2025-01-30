@@ -22,7 +22,7 @@ REST-Connect currently supports Python, and uses Pytest test cases for software 
 
 2. Download the Docker Daemon (can be found at https://www.docker.com/) and run it.
    
-3. Import some python functions or basic programs into the folder.
+3. Import some Python functions or basic programs into the folder.
 ---
 
 ### **2. Usage**
@@ -84,18 +84,21 @@ You can include common troubleshooting tips and answers to frequently asked ques
 ## FAQ
 
 **Q: How do I test a Python file?**  
-A: Simply send the path to your Python file along with the language `python` as parameters in the `POST /run-test-cases` request.
+A: Simply send the path to your Python file along with the language `python` as parameters in the `POST /run-test-cases` request, or perform a CLI Interface request as detailed above.
 
 **Q: What should I do if I get a 500 Internal Server Error?**  
 A: Check the server logs for detailed error information. It might be an issue with the OpenAI API or the code you’re testing.
 
+**Q: GPT doesn't return test cases!**
+A: Check that you've made an env file for your GPT API Key.
+
 **Q: How can I change the port the server listens on?**  
-A: Set the `PORT` environment variable in your `.env` file to your desired port number.
+A: Set the `port` variable in your `src/index.ts` file to your desired port number.
 ```
 
 ## Acknowledgements
 
-- **Express**: This project uses the Express framework, which makes it easy to set up web servers in Node.js.
-- **OpenAI**: Thanks to OpenAI for providing the powerful API that powers the test case generation.
-- **Docker**: For containerizing the application and ensuring it runs seamlessly across different environments.
-- **npm**: For package management and making it easier to install and manage dependencies.
+- **Express**: This project uses the Express framework, for the easy setup of a web server that functions as an API.
+- **OpenAI**: Thanks to OpenAI for providing the API and SDK that enable test case generation.
+- **Docker**: Docker quickly containerizes and executes code, easily taking snapshots and running test cases.
+- **npm**: For package management and making it easy to install and manage dependencies.
