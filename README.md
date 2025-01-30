@@ -51,7 +51,7 @@ EXAMPLE:
 
 curl -X POST http://localhost:3000/run-test-cases \
 -H "Content-Type: application/json" \  
--d '{  ```json
+-d '{
     "codeFile": "path/to/your/code.py",  
     "language": "python"  
 }'
