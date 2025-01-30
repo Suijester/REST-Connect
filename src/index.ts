@@ -92,21 +92,49 @@ const runTestCases = async (functionCode: string, language: string, testCases: s
 };
 
 // accepts a file and language as arguments after the script, so 'npx tsx src/indice.ts path/to/file.py python'
-const[,, codeFile, language] = process.argv;
+// Check if arguments are provided for CLI mode
+const [,, codeFile, language] = process.argv;
 
-if (!codeFile || !language) {
-    console.error("Program Code File path or code language not provided.");
-    process.exit(1);
+if (codeFile && language) {
+    if (!codeFile || !language) {
+        console.error("Program Code File path or code language not provided.");
+        process.exit(1);
+    }
+
+    const programCode = fs.readFileSync(path.resolve(codeFile), 'utf-8');
+    generateCases(programCode, language)
+        .then(testCases => runTestCases(programCode, language, testCases))
+        .then(failedTests => console.log('Failed Tests:'))
+        .catch(error => console.error('Error:', error));
+        
+} else {
+    const app = express();
+    const port = 3000;
+    app.use(express.json());
+
+    app.post('/run-test-cases', async (req, res) => {
+        const { codeFile, language } = req.body;
+
+        if (!codeFile || !language) {
+            res.status(400).json({error: "Program Code File path or language not provided."});
+            return;
+        }
+
+        try {
+            const programCode = fs.readFileSync(path.resolve(codeFile), 'utf-8');
+            const testCases = await generateCases(programCode, language);
+            const failedTests = await runTestCases(programCode, language, testCases);
+
+            res.json({failedTests});
+            return;
+        } catch (error) {
+            console.error("Error during test case generation or execution:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+    });
+
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+    });
 }
-
-// extracts the code from the given file
-const programCode = fs.readFileSync(path.resolve(codeFile), 'utf-8');
-
-generateCases(programCode, language)
-    .then(testCases => runTestCases(programCode, language, testCases))
-    .then(failedTests => console.log('Failed Tests:'))
-    .catch(error => console.error('Error:', error));
-
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
