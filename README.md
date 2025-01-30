@@ -26,7 +26,8 @@ REST-Connect currently supports Python, and uses Pytest test cases for software 
 ---
 
 ### **2. Usage**
-```
+
+```markdown
 ## Usage
 ### Express Server
 The Express server provides an endpoint for generating and running test cases for a given code file.
