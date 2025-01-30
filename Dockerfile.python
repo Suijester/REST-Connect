@@ -1,0 +1,11 @@
+FROM python:3.10
+
+WORKDIR /app
+
+COPY src/dockerspace/ .
+
+RUN pip install pytest
+
+RUN pytest -v || true
+
+CMD ["pytest", "test_program.py"]
