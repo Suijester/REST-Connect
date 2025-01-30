@@ -48,7 +48,9 @@ This endpoint allows you to send a code file and its language to generate and ru
 ```markdown
 
 EXAMPLE:
-curl -X POST http://localhost:3000/run-test-cases \  
+
+curl -X POST http://localhost:3000/run-test-cases \
+```json
 -H "Content-Type: application/json" \  
 -d '{  
     "codeFile": "path/to/your/code.py",  
