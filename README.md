@@ -50,9 +50,8 @@ This endpoint allows you to send a code file and its language to generate and ru
 EXAMPLE:
 
 curl -X POST http://localhost:3000/run-test-cases \
-```json
 -H "Content-Type: application/json" \  
--d '{  
+-d '{  ```json
     "codeFile": "path/to/your/code.py",  
     "language": "python"  
 }'
