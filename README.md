@@ -44,6 +44,8 @@ This endpoint allows you to send a code file and its language to generate and ru
   "language": "python"                 
 }
 
+```
+```markdown
 
 EXAMPLE:
 curl -X POST http://localhost:3000/run-test-cases \  
