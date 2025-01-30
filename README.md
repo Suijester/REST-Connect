@@ -1,4 +1,4 @@
-#REST-Connect
+# REST-Connect
 REST-Connect is a REST API that acts as a middleman to fetch test cases from o1, execute them in Docker containers, and return any failures. It simplifies automated testing workflows.
 REST-Connect currently supports Python, and uses Pytest test cases for software automation, essentially functioning as a part of a CI/CD pipeline.
 
