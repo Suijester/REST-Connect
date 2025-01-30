@@ -77,7 +77,7 @@ npm install express openai dotenv fs child_process
 ```
 
 
-### **5. FAQ (Frequently Asked Questions)**
+### **4. FAQ (Frequently Asked Questions)**
 You can include common troubleshooting tips and answers to frequently asked questions about your server.
 
 ```markdown
