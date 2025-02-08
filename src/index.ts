@@ -21,7 +21,6 @@ type OpenAIResponse = {
 
 const generateCases = async (functionCode: string, language: string): Promise<string> => {
     try {
-
         // prompt for OpenAI's API, modify as you need
         const prompt = `You are a skilled and experienced software tester. Below is code written in ${language}. Your task is to write multiple test cases for the program, each of which will fail if they encounter possible exceptions, runtime errors, boundary conditions, and edge cases. You should also test possible errors (e.g., invalid inputs, overflow, etc.), and let the test cases fail if they create any form of error. Ensure at least twenty rigorous test cases are generated, but below thirty, each of which can fail. These tests should not result in runtime errors themselves, and should follow the conventions of the testing framework in ${language}.
 
@@ -71,6 +70,13 @@ const runTestCases = async (functionCode: string, language: string, testCases: s
     if (language.toLowerCase() === 'python') {
         const testFile = path.join(workDir, 'test_program.py');
         await fs.promises.writeFile(testFile, functionCode + '\n' + testCases);
+
+
+        let code = fs.readFileSync(testFile, 'utf-8');
+        code = code.replace(/```python/g, "");
+        code = code.replace (/```/g, "");
+        fs.writeFileSync(testFile, code);
+
         const dockerfile = 'Dockerfile.python';
 
         return new Promise((resolve, reject) => {
@@ -91,8 +97,8 @@ const runTestCases = async (functionCode: string, language: string, testCases: s
     }
 };
 
-// accepts a file and language as arguments after the script, so 'npx tsx src/indice.ts path/to/file.py python'
-// Check if arguments are provided for CLI mode
+// accepts a file and language as arguments after the script, so 'npx tsx src/index.ts path/to/file.py python'
+// check if proper args and syntax are provided for CLI mode
 const [,, codeFile, language] = process.argv;
 
 if (codeFile && language) {
@@ -113,7 +119,7 @@ if (codeFile && language) {
     app.use(express.json());
 
     app.post('/run-test-cases', async (req, res) => {
-        const { codeFile, language } = req.body;
+        const {codeFile, language} = req.body;
 
         if (!codeFile || !language) {
             res.status(400).json({error: "Program Code File path or language not provided."});
