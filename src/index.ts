@@ -71,7 +71,7 @@ const runTestCases = async (functionCode: string, language: string, testCases: s
         const testFile = path.join(workDir, 'test_program.py');
         await fs.promises.writeFile(testFile, functionCode + '\n' + testCases);
 
-
+        // remove gpt's excess code blocks from the generated test cases, and then write to the file the remainder
         let code = fs.readFileSync(testFile, 'utf-8');
         code = code.replace(/```python/g, "");
         code = code.replace (/```/g, "");
