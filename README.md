@@ -20,9 +20,11 @@ REST-Connect currently supports Python, and uses Pytest test cases for software 
    git clone https://github.com/your-username/REST-Connect.git
    cd REST-Connect
 
-2. Download the Docker Daemon (can be found at https://www.docker.com/) and run it.
+2. Create a file '.env', and enter OPENAI_API_KEY = {insert key name}.
+
+3. Download the Docker Daemon (can be found at https://www.docker.com/) and run it.
    
-3. Import some Python functions or basic programs into the folder.
+4. Import some Python functions or basic programs into the folder.
 ---
 
 ### **2. Usage**
