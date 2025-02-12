@@ -113,33 +113,6 @@ const runTestCases = async (functionCode: string, language: string, testCases: s
             );
         });
     }
-    else if (language.toLowerCase() === 'c++') {
-        const testFile = path.join(workDir, 'test_program.cpp');
-        await fs.promises.writeFile(testFile, functionCode + '\n' + testCases);
-
-        let code = fs.readFileSync(testFile, 'utf-8');
-        code = code.replace(/```c\+\+/g, "");
-        code = code.replace (/```/g, "");
-        fs.writeFileSync(testFile, code);
-
-        const dockerfile = 'Dockerfile.cpp';
-
-        return new Promise((resolve, reject) => {
-            exec(`docker build -f ${dockerfile} -t code-runner . && docker run --rm -v ${workDir}:/app code-runner`, 
-                (error, stdout, stderr) => { 
-                    if (error) {
-                        console.error('Docker Error:', stderr || error.message);
-                        reject(stderr || error.message);
-                    } else {
-                        console.log('Docker Output:', stdout);
-                        const failedTests = stdout.match(/FAILED.*$/gm) || [];
-                        resolve(failedTests);
-                    }
-                    cleanFiles(workDir);
-                }
-            );
-        });
-    }
 };
 
 // accepts a file and language as arguments after the script, so 'npx tsx src/index.ts path/to/file.py python'
