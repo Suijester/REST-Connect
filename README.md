@@ -17,7 +17,7 @@ REST-Connect currently supports Python, and uses Pytest test cases for software 
 ### **1. Installation**
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/REST-Connect.git
+   git clone https://github.com/Suijester/REST-Connect.git
    cd REST-Connect
 
 2. Create a file '.env', and enter OPENAI_API_KEY = {insert key name}.
